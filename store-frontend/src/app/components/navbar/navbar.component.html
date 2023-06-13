@@ -1,0 +1,33 @@
+<mat-toolbar color="primary" class="p-0 d-flex align-items-center top-0 right-0 left-0">
+  <button mat-icon-button (click)="openSideNav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <a class="p-2 text-white text-decoration-none">store</a>
+  <div class="w-100 h-100 d-flex align-items-center justify-content-between">
+    <div class="h-100">
+      <a class="h-100 text-decoration-none" mat-button routerLink="/">Home</a>
+      <a class="h-100 text-decoration-none" mat-button routerLink="/products">Products</a>
+      <a class="h-100 text-decoration-none" mat-button routerLink="/cart">Cart</a>
+      <a class="h-100 text-decoration-none" mat-button routerLink="/checkout">Checkout</a>
+    </div>
+    <div class="d-flex align-items-center h-100">
+      <a class="btn btn-outline-light me-2" routerLink="/login">Login</a>
+      <a class="btn btn-primary" routerLink="/register">Register</a>
+      <a class="h-100 text-decoration-none" mat-button [mat-menu-trigger-for]="managementMenu">Management</a>
+      <mat-menu #managementMenu>
+        <a class="text-decoration-none" mat-button routerLink="/Dashboard">Dashboard</a>
+        <a class="text-decoration-none" mat-button routerLink="/Dashboard">M-Categories</a>
+        <a class="text-decoration-none" mat-button routerLink="/Dashboard">M-Products</a>
+      </mat-menu>
+      <a class="h-100 text-decoration-none" mat-button [mat-menu-trigger-for]="userMenu">User</a>
+      <mat-menu #userMenu>
+        <a class="text-decoration-none" mat-button routerLink="/Dashboard">Profile</a>
+        <a class="text-decoration-none" mat-button routerLink="/Dashboard">Orders</a>
+        <a class="text-decoration-none" mat-button routerLink="/Dashboard">Logout</a>
+      </mat-menu>
+      <a class="h-100 text-decoration-none" mat-button routerLink="/cart">
+        <mat-icon class="material-icons-outlined md-48">shopping_cart</mat-icon>
+      </a>
+    </div>
+  </div>
+</mat-toolbar>

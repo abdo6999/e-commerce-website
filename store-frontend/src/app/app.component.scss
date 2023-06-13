@@ -1,0 +1,15 @@
+app-navbar {
+  width: 100%;
+  height: fit-content;
+  display: block;
+}
+app-main-content {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.wrapper-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

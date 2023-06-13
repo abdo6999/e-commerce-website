@@ -1,0 +1,82 @@
+
+admin structure: 
+• dashboard
+• manage-categories
+• manage-orders
+• manage-users
+• admin.module
+• admin.service
+
+main components: 
+* auth:
+    • login component 
+    • register component
+• cart component
+• category-list component
+• category-details component
+• contact component
+• home component
+• order component
+• product component 
+• product details component
+• profile component
+
+models:
+• cart 
+• cart-item
+• category 
+• invoice
+• order
+• order-item
+• payment 
+• product 
+• profile
+• user
+• user-data
+
+enums:
+• category-type
+• order-status
+• payment-methods
+
+guards:
+• admin-auth
+• user-auth
+
+pipes:
+• product-filter
+
+
+
+resolvers:
+• admin-resolver
+• cart-resolver
+• category-resolver
+• product-resolver
+• order-resolver 
+• profile-resolver 
+• user-resolver
+
+services structure:
+• alert service
+*auth:
+• auth service
+• error-interceptor service
+• token-interceptor service
+• cart service
+• category service
+• invoice service 
+• order service
+• payment service 
+• product service
+
+
+shared structure: 
+• alert component
+• application-error component 
+• files module 
+• material module
+• ngx module
+• page-not-found component 
+• resource-not-found component 
+• error-handler class

@@ -1,0 +1,29 @@
+.left-nav > a:first-child,
+.left-nav > a:nth-child(2){
+  margin: 0 10px;
+}
+nav.navbar {
+  min-height: 5vh;
+  z-index: 5;
+}
+
+::ng-deep {
+  .cdk-overlay-pane {
+    position: absolute!important;
+  }
+  .mdc-button__label{
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+  }
+  .dropdown-toggle::after{
+    color: #007bff;
+  }
+  .mat-expansion-panel:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+  }
+  .nav-link.mdc-button.mat-mdc-button{
+    justify-content: start;
+  }
+}
+

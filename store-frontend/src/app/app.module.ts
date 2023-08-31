@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/auth/login/login.component';
@@ -26,11 +24,13 @@ import { NgxModule } from './shared/ngx/ngx.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilesModule } from './shared/files/files.module';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { MainContentComponent } from './components/main-content/main-content.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptorService } from './services/auth/token-interceptor.service';
 import { ErrorInterceptorService } from './services/auth/error-interceptor.service';
+import {  MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MY_DATE_FORMAT } from './shared/date-format';
+import { SvgComponent } from './shared/custom-components/svg/svg.component';
 
 @NgModule({
   declarations: [
@@ -52,8 +52,8 @@ import { ErrorInterceptorService } from './services/auth/error-interceptor.servi
     PageNotFoundComponent,
     ResourceNotFoundComponent,
     NavbarComponent,
-    MainContentComponent,
     FooterComponent,
+    SvgComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +64,7 @@ import { ErrorInterceptorService } from './services/auth/error-interceptor.servi
     FilesModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [
     {
@@ -76,6 +77,8 @@ import { ErrorInterceptorService } from './services/auth/error-interceptor.servi
       useClass: ErrorInterceptorService,
       multi: true,
     },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT }
+
   ],
   bootstrap: [AppComponent],
 })

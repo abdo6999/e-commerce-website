@@ -1,6 +1,31 @@
-GET    http://localhost:4000/get-products
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJzaGF3ZTIiLCJpYXQiOjE2NzY4MTczNDYsImV4cCI6MTY3Njk5MDE0Nn0.S-o0HDruYndaBzgYENIr_vULBjC1SARzAm91neA7P3M
+
+GET  http://localhost:3200/api/customers/customer
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiNDQyZjhkNzUtMmMxMi00NzhmLWI3YTAtNTRiMjZiMjA5NTQwMWE2YjIzZjQ2YzFkZTdhOTI1YzNkMWY4ZTZiNTI0NTdjMmU4NjQ3MjBlODFkM2E0ZDdhM2U1NmU2NTQ4OGE5IiwiaWF0IjoxNjkzMzg3MzQ4LCJleHAiOjE2OTMzODgyNDh9.tCMrbiTGaPEIAOPnmOW-G1Jykr9gKPL5nailw3dKYXw
+
+# {
+#   "AuthCredentialsDto":{
+#       "username": "testfsafUfafaser",
+#       "password": "testPassword"
+#   }
+# }
+
+# {
+#   "AuthCredentialsDto": {
+#   },
+#   "CreateProfileDto": {
+#     "first_name": "John",
+#     "last_name": "Doe",
+#     "email": "johndoe@example.com",
+#     "gender": "Male",
+#     "age": "30",
+#     "country": "USA",
+#     "city": "New York",
+#     "address": "123 Main St",
+#     "phone": "555-123-4567",
+#     "post_code": "10001"
+#   }
+# }
 
 
-
-# GET  http://localhost:4000/show-user/1
+#  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0b21lciI6IjQ1ZmNkZWQ4LWU4NzktNDNhMC1hZmIxLTBhMDgxNjRmNmVhMjFhNmIyM2Y0NmMxZGU3YTkyNWMzZDFmOGU2YjUyNDU3YzJlODY0NzIwZTgxZDNhNGQ3YTNlNTZlNjU0ODhhOSIsImlhdCI6MTY5MzM4NjY4NCwiZXhwIjoxNjkzMzg3NTg0fQ.nr02NYm9E6ZB1fD0ajfmlaadqQFQRuYIxb8HRmrSyco",

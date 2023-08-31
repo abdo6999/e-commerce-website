@@ -4,51 +4,31 @@ import { Observable, catchError, filter, map, of, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from 'src/env/environment.prod';
 import { User } from 'src/app/models/user';
-
+import { AuthCredentialsDot,accessToken } from 'src/app/models/auth';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private currentUser!: User | null;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   // registerUser service
-  registerUser(userData: User): Observable<User> {
-    return this.http.post<User>(environment.REGISTER_ROUTE, userData).pipe(
-      tap((user) => (this.currentUser = user)),
-      catchError((error) => {
-        console.error('Error during registration:', error);
-        return of(null);
-      }),
-      filter((user) => !!user), // filter out null values
-      map((user) => user as User) // cast to User type
-    );
+  registerUser(userData: User): Observable<void> {
+    return this.http.post<void>(environment.REGISTER_ROUTE, userData)
   }
 
   // login service
-  login(email: string, password: string): Observable<User> {
-    const body = { email, password };
-    return this.http.post<User>(environment.LOGIN_ROUTE, body).pipe(
-      tap((user) => (this.currentUser = user)),
-      catchError((error) => {
-        console.error('Error during login:', error);
-        return of(null);
-      }),
-      filter((user) => !!user), // filter out null values
-      map((user) => user as User) // cast to User type
-    );
+  login(authCredentialsDot: AuthCredentialsDot) {
+    const body = {
+      userName: authCredentialsDot.userName,
+      password: authCredentialsDot.password,
+    };
+    return this.http.post(environment.LOGIN_ROUTE, body);
   }
 
   logout(): Observable<null> {
-    this.currentUser = null;
     localStorage.removeItem('token');
-    this.router.navigate(['/home']);
     return of(null);
-  }
-
-  getCurrentUser(): User | null {
-    return this.currentUser;
   }
 
   getToken() {

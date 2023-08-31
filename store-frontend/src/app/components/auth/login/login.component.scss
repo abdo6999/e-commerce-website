@@ -1,0 +1,22 @@
+.login {
+  .input-group-append button {
+    border: 1px solid #ced4da;
+  }
+  input.form-control{
+    color: #F8F9FA;
+  }
+  .form-control:focus{
+    border-color: #ced4da;
+  }
+  input{
+    color: #264ECA;
+  }
+  input::placeholder{
+    color: #F8F9FA;
+  }
+}
+  mat-icon {
+    border-right: none;
+    color: #F8F9FA;
+  }
+

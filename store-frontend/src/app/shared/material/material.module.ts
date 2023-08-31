@@ -43,6 +43,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatTreeModule} from '@angular/material/tree';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -114,6 +115,7 @@ const MaterialComponents = [
   MatTreeModule,
   PortalModule,
   ScrollingModule,
+  TooltipModule,
 ];
 
 

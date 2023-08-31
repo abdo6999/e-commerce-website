@@ -1,28 +1,19 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = require("express");
-const bodyParser = require("body-parser");
-const product_1 = require("./api/product");
-const user_1 = require("./api/user");
-const order_1 = require("./api/order");
-const app = express();
-const address = "4000";
-app.use(bodyParser.json());
-app.get("/", function (_req, res) {
-    const array = app._router.stack;
-    const a = [];
-    for (let i = 0; i < array.length; i++) {
-        try {
-            a.push(array[i].route.path);
-        }
-        catch (error) { }
-    }
-    res.send(a);
-});
-(0, product_1.default)(app);
-(0, user_1.default)(app);
-(0, order_1.default)(app);
+const env_1 = require("./env");
+const express_1 = __importDefault(require("express"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const routes_1 = __importDefault(require("./routes"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const app = (0, express_1.default)();
+const address = env_1.PORT;
+app.use((0, cookie_parser_1.default)());
+app.use(body_parser_1.default.json());
+app.use("/api", routes_1.default);
 app.listen(address, function () {
     console.log(`starting app on: ${address}`);
 });
-exports.default = app;
+//# sourceMappingURL=server.js.map

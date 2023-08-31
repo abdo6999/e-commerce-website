@@ -1,0 +1,126 @@
+$font-color: #ffff;
+
+.register {
+  color: $font-color;
+
+  .bg-img {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  .main {
+    z-index: 1;
+  }
+  .error-container {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    justify-content: flex-start; /* Horizontally align items to the start */
+  }
+
+  ::ng-deep {
+    mat-form-field {
+      margin-bottom: 15px;
+    }
+    mat-form-field:has(#day) ,
+    mat-form-field:has(#month) ,
+    mat-form-field:has(#year)  {
+      margin-bottom:0;
+    }
+    mat-error {
+      max-height: 20px;
+      color: $font-color;
+      margin-top: 5px;
+    }
+
+    // * in label
+    .mdc-floating-label--required:not(.mdc-floating-label--hide-required-marker)::after{
+      margin-left: 4px;
+    }
+    // control bg on autofill
+    input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 30px rgb(219, 219, 219) inset !important;
+    }
+
+    label {
+      color: white;
+      margin: 0;
+    }
+    .mat-mdc-radio-button {
+      margin-left: 16px;
+    }
+    // control button icon (?) after error
+    .mat-mdc-icon-button.mat-mdc-button-base {
+      padding: 0;
+      height: 20px;
+    }
+    // remove hover effect
+    .mat-mdc-button-persistent-ripple {
+      display: none;
+    }
+    .phone {
+      mat-hint{
+        height: 20px;
+      }
+      .mat-mdc-form-field-hint-wrapper {
+        padding: 0;
+      }
+    }
+    // phone input styles
+    .iti__country-name,
+    .iti__selected-dial-code {
+      color: rgba(0, 0, 0, 0.8);
+    }
+
+    .iti--allow-dropdown .iti__flag-container:hover .iti__selected-flag {
+      background-color: transparent;
+    }
+
+    .iti--separate-dial-code .iti__selected-flag {
+      background-color: transparent;
+    }
+
+    .iti {
+      width: 100%;
+    }
+
+
+  }
+
+  .main div:has(mat-radio-group) {
+    margin-bottom: 15px;
+  }
+
+  .phone {
+    position: relative;
+    z-index: 8;
+  }
+
+  .address,
+  .date,
+  .name {
+    gap: 10px;
+  }
+  .date{
+    position: relative;
+    margin-top: 20px;
+  }
+  .date::before{
+    content: "Date Of Birth:";
+    position: absolute;
+    color: white;
+    left: 0px;
+    top: -25px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  @media (max-width: 490px) {
+    .address,
+    .date,
+    .name {
+      flex-direction: column;
+    }
+  }
+}
+

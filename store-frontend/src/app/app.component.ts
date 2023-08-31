@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { MainContentComponent } from './components/main-content/main-content.component';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subject, filter, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,22 @@ import { MainContentComponent } from './components/main-content/main-content.com
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  @ViewChild('mainContent') mainContent!: MainContentComponent;
   title = 'store-frontend';
-  
-  toggleSidebar() {
-    this.mainContent.sidenav.toggle();
+  showSvg: boolean = false;
+  private destroy$ = new Subject<void>();
+
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this.destroy$) // Unsubscribe when the component is destroyed
+      )
+      .subscribe((event: any) => {
+        this.showSvg = event.url === '/auth/login';
+      });
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

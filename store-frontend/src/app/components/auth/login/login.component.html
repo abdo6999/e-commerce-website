@@ -1,1 +1,59 @@
-<p>login works!</p>
+<div class="row login">
+  <div class="mx-auto">
+    <div class="d-flex justify-content-center align-items-center mb-5">
+      <img style="width: 100px;" src="assets/cart.svg" alt="">
+    </div>
+    <div class=" rounded">
+      <form [formGroup]="authCredentialsDot" (ngSubmit)="userLogin()" class="form">
+      <div >
+          <div class="input-group mb-3">
+            <div class="input-group-prepend d-flex align-items-center ">
+              <mat-icon class="input-group-text w-auto h-auto bg-transparent">person_outline</mat-icon>
+            </div>
+              <input class="form-control shadow-none h-auto bg-transparent  border-left-0" placeholder="USERNAME" type="text" formControlName="username" matInput  id="username" name="username" required>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend d-flex align-items-center">
+              <mat-icon class="input-group-text w-auto h-auto bg-transparent">lock_outline</mat-icon>
+            </div>
+              <input class="form-control shadow-none bg-transparent h-auto  border-right-0 border-left-0" placeholder="PASSWORD" [type]='show ? "text" :"password" ' formControlName="password"   id="password" name="password" required>
+              <div class="input-group-append  d-flex align-items-center ">
+                <button class="d-flex align-items-center w-100 bg-transparent  h-100 border-left-0 rounded-right" type="button" (click)="show = !show">
+                  <mat-icon >{{show?'visibility_off':'visibility'}}</mat-icon>
+                </button>
+              </div>
+          </div>
+        </div>
+        <div >
+          <input value="Login" type="submit" [disabled]="!this.authCredentialsDot.valid" class="btn w-100 btn-light pull-right flot-right">
+        </div>
+        <p class="text-light p-2 m-0">Forgot password?</p>
+        <p class="text-light p-2 ">
+          don't have an account?&nbsp;
+          <a class="p-1 mb-2 bg-info text-white rounded text-decoration-none " routerLink="/auth/register">Sign Up</a>
+
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ng-template #invalidCredentials>
+  <div class="modal-header">
+    <mat-icon>error</mat-icon>
+    <h4 class="pl-2">
+      Invalid Credentials
+    </h4>
+    <button type="button" (click)="hideModal()" class="close pull-right" aria-label="close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <div class="alert alert-danger " role="alert">
+      Either username or password are not incorrect!!
+    </div>
+  </div>
+  <button type="button" class="btn btn-danger" (click)="authCredentialsDot.reset();hideModal()">
+    Try Again!
+  </button>
+</ng-template>

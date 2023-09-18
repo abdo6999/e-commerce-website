@@ -1,0 +1,17 @@
+<div class="multi-carousel" >
+  <div class="d-flex justify-content-center m-2 mb-3">
+      <button class="mx-3 prev" type="button"(click)="prevSlide()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button class="mx-3 nex" type="button" (click)="nextSlide()">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+  </div>
+  <div class="multi-carousel-inner" #carousel>
+      <div class="multi-carousel-item col-md-6 col-lg-4 col-xl-3 mb-4 mb-lg-0" *ngFor="let product of products" >
+        <div>
+          <app-product-card (click)="sendProductData(product)" [product]="product"></app-product-card>
+        </div>
+    </div>
+  </div>
+</div>

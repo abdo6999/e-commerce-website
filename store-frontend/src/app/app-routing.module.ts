@@ -11,53 +11,53 @@ import { ProductComponent } from './components/product/product.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { CategoryDetailsComponent } from './components/category-details/category-details.component';
-import { OrderService } from './services/order/order.service';
-import { CartService } from './services/cart/cart.service';
-import { AuthService } from './services/auth/auth.service';
-import { ProductService } from './services/product/product.service';
-import { CategoryService } from './services/category/category.service';
 import { UserAuthGuard } from './guards/user-auth.guard';
+import { ProfileResolver } from './resolvers/profile.resolver';
+import { ordersResolver } from './resolvers/orders.resolver';
+import { productsResolver } from './resolvers/products.resolver';
+import { productDetailsResolver } from './resolvers/product-details.resolver';
+import { categoryResolver } from './resolvers/category.resolver';
+import { PreventIsLoginAccessGuard } from './guards/prevent-is-login-access.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ProfileComponent,
-  // resolve:{
-  //   orderData: OrderService
-  // },
-  canActivate:[UserAuthGuard]
+    resolve:{
+      profileData: ProfileResolver
+    },
+    canActivate:[UserAuthGuard]
   },
   { path: 'orders', component: OrderComponent,
-    // resolve:{
-    //   orderData: OrderService
-    // },
+    resolve:{
+      orderData: ordersResolver
+    },
     canActivate:[UserAuthGuard]
   },
   { path: 'cart', component: CartComponent,
-    // resolve: {
-    //   cartData: CartService
-    // },
   },
   {
     path: 'auth', children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent }
+      { path: 'login', component: LoginComponent},
+      { path: 'register', component: RegisterComponent}
     ],
-    // resolve:{
-    //   authData: AuthService
-    // }
+    canActivate:[PreventIsLoginAccessGuard]
   },
   {
     path: 'products', component: ProductComponent,
-    // resolve: {
-    //   productData: ProductService
-    // },
+    resolve: {
+      productData: productsResolver
+    },
   },
-  { path: 'products/:id', component: ProductDetailsComponent },
+  { path: 'products/:id', component: ProductDetailsComponent ,
+    resolve:{
+      productDetails:productDetailsResolver
+    }
+  },
   { path: 'category', component: CategoryListComponent ,
-    // resolve: {
-    //   categoryData: CategoryService
-    // }
+    resolve: {
+      categoryData: categoryResolver
+    }
   },
   { path: 'category/:id', component: CategoryDetailsComponent },
   { path: '**', component: PageNotFoundComponent }

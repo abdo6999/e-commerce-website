@@ -1,12 +1,207 @@
-/* You can add global styles to this file, and also import other style files */
+/* Shared variables for font size */
+:root {
+  --fs-sm: 22px;
+  --fs-md: 32px;
+  --fs-lg: 40px;
+  --fs-hd: 48px;
+}
+
+
+@media (max-width: 1200px) {
+  :root {
+    --fs-sm: 20px;
+    --fs-md: 28px;
+    --fs-lg: 36px;
+    --fs-hd: 44px;
+  }
+}
+
+@media (max-width: 992px) {
+  :root {
+    --fs-sm: 18px;
+    --fs-md: 26px;
+    --fs-lg: 34px;
+    --fs-hd: 42px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --fs-sm: 16px;
+    --fs-md: 24px;
+    --fs-lg: 32px;
+    --fs-hd: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    --fs-sm: 14px;
+    --fs-md: 22px;
+    --fs-lg: 30px;
+    --fs-hd: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --fs-sm: 12px;
+    --fs-md: 20px;
+    --fs-lg: 28px;
+    --fs-hd: 36px;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --fs-sm: 10px;
+    --fs-md: 18px;
+    --fs-lg: 26px;
+    --fs-hd: 34px;
+  }
+}
+
+@media (max-width: 320px) {
+  :root {
+    --fs-sm: 8px;
+    --fs-md: 16px;
+    --fs-lg: 24px;
+    --fs-hd: 32px;
+  }
+}
+
+/* Font Weights */
+:root {
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semi-bold: 600;
+  --fw-bold: 700;
+}
+
+:root {
+  --secondary-color-1:#23856D;
+  --success-color:#2DC071;
+  --alert-color:#E77C40;
+  --danger-color:#E74040;
+  --hover-color:#2A7CC7;
+  --disabled-element-color:#8EC2F2;
+  --muted-color:#BDBDBD;
+
+  --success-text-color:#2DC071;
+  --alert-text-color:#E77C40;
+  --danger-text-color:#E74040;
+  --faded-primary-color:#B2E3FF;
+  --faded-secondary-color-1:#B9EAA8;
+  --faded-secondary-color-2:#FFDCD1;
+}
+
+[data-bs-theme="light"] {
+  --bg-color: #ffffff;
+  --gradient-bg-color:  linear-gradient(243.4deg, rgb(0, 215, 206) 13%, rgb(0, 132, 255) 98%);
+  --text-color:#252B42;
+  --secondary-color-2:#3C403D;
+  --primary-color:#23A6F0;
+  --light-gray-1:#FAFAFA;
+  --light-gray-2:#ECECEC;
+  --gray-1:#cccc;
+  --light-color:#ffff;
+}
+[data-bs-theme="dark"] {
+
+  --bg-color:#252B42;
+  --gradient-bg-color: radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%);
+  --text-color:#FFFFFF;
+  --secondary-color-2:#BDBDBD;
+  --primary-color:#c5c0c0;
+  --light-gray-1:#FAFAFA;
+  --light-gray-2:#ECECEC;
+  --gray-1:#cccc;
+  --light-color:#ffff;
+
+}
 
 body {
   margin: 0;
   min-height: 100vh;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   box-sizing: content-box;
+  color: var(--text-color);
 }
 *:focus-visible,
 *:focus {
   outline: none !important;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.nav-left-custom {
+  color:var(--primary-color);
+  transition: all ease-in 0.1s;
+  &:not(span):hover {
+    color: var(--hover-color);
+    transform:scale(1.05) ;
+  }
+}
+.nav-item-custom{
+  color: var(--secondary-color-2) !important;
+  transition: all ease-in 0.1s;
+  &:hover {
+    color: var(--hover-color)!important;
+    transform:scale(1.05) ;
+    .text-container {
+      color: var(--hover-color)!important;
+    }
+  }
+}
+.nav-item-custom-click {
+  color: var(--hover-color)!important;
+  transform:scale(1.05) ;
+  .text-container {
+    color: var(--hover-color)!important;
+  }
+}
+
+// storage services
+
+// Home Page (Root Route):
+
+// /: The root route usually corresponds to the home page of the e-commerce website. It showcases featured products, promotions, and provides an overview of what the website offers.
+// Product Listings:
+
+// /products: This route displays a list of all products available for sale.
+// /products/category/:category: Allows users to filter products by category.
+// /products/brand/:brand: Allows users to filter products by brand.
+// /products/search: Enables users to search for specific products.
+// Product Details:
+
+// /product/:productId: This route displays detailed information about a specific product, including product images, descriptions, pricing, and reviews.
+// Shopping Cart:
+
+// /cart: The shopping cart route displays the contents of the user's shopping cart, including a list of selected products, quantities, and the total cost.
+// Checkout:
+
+// /checkout: This route guides users through the checkout process, including entering shipping information, payment details, and reviewing the order before finalizing the purchase.
+// User Account:
+
+// /account: Users can access their account dashboard, which may include order history, saved addresses, and profile settings.
+// /account/orders: Displays a list of previous orders and their status.
+// /account/settings: Allows users to update their account information and preferences.
+// Authentication and Registration:
+
+// /login: The login page for registered users.
+// /register: The registration page for new users.
+// /forgot-password: Allows users to reset their password if forgotten.
+// Payment and Order Confirmation:
+
+// /payment: After completing the checkout process, users are redirected to this route for payment processing and order confirmation.
+// /order/:orderId: Displays a confirmation page with order details after a successful purchase.
+// Admin Dashboard (if applicable):
+
+// /admin: Access to the admin dashboard for managing products, orders, customers, and other administrative tasks.
+// Error Pages:
+
+// /404: A custom 404 page for handling page not found errors.
+// /500: A custom error page for handling server errors.

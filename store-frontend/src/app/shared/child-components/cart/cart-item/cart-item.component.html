@@ -1,0 +1,19 @@
+<div class="cart-item  d-flex align-items-center justify-content-start "  (click)="sendProductData(product)">
+  <div class="d-flex align-items-center flex-grow-1">
+    <div class="img-container pointer px-2 m-2" [routerLink]="'/products/'+product.id">
+      <img [src]="product.thumbnail" alt="Product Image" />
+    </div>
+    <div class="product-details pointer d-flex flex-grow-1 flex-column" [routerLink]="'/products/'+product.id">
+      <h5 >{{product.title}}</h5>
+      <p>{{product.price | currency}}</p>
+      <p>total: {{product.price * product.quantity | currency}}</p>
+    </div>
+  </div>
+  <div>
+    <div class="stock">
+      <button class="btn btn-sm btn-secondary" (click)="onDecreaseStock($event)">-</button>
+      <span>{{product.quantity}}</span>
+      <button class="btn btn-sm btn-secondary" (click)="onIncreaseStock($event)">+</button>
+    </div>
+  </div>
+</div>

@@ -4,10 +4,18 @@ import  bodyParser from "body-parser";
 import apiRouters from "./routes";
 import  cookieParser from 'cookie-parser'
 
+import cors from 'cors';
 
 const app: express.Application = express();
 
 const address = PORT;
+
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  credentials: true,
+}
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 

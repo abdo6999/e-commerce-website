@@ -1,0 +1,27 @@
+.nav-item-custom {
+  color: var(--secondary-color-2) !important;
+  transition: all ease-in 0.1s;
+  &:hover {
+    color: var(--hover-color)!important;
+    transform:scale(1.05) ;
+    .text-container {
+      color: var(--hover-color)!important;
+    }
+  }
+}
+.nav-left-custom {
+  color:var(--primary-color);
+  transition: all ease-in 0.1s;
+  &:not(span):hover {
+    color: var(--hover-color);
+    transform:scale(1.05) ;
+  }
+}
+.nav-header-custom {
+  color: var(--text-color) !important;
+  transition: all ease-in 0.1s;
+  &:hover {
+    color: var(--hover-color) !important;
+    transform:scale(1.05) ;
+  }
+}

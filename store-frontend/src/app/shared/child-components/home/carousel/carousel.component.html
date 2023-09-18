@@ -1,0 +1,17 @@
+<div>
+  <div class="row">
+    <div class="col-md-12">
+      <carousel class="carousel"  [isAnimated]="true">
+        <slide *ngFor="let item of items">
+          <img [src]="item.image" alt="{{ item.alt }}" class="carousel-image" />
+          <div class="card-img-overlay"></div>
+          <div class="carousel-caption" [ngClass]="item.position">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+            <button routerLink="/products" type="button" class="btn" [ngClass]="item.color">{{item.button}}</button>
+          </div>
+        </slide>
+      </carousel>
+    </div>
+  </div>
+</div>

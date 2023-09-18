@@ -1,0 +1,33 @@
+.multi-carousel {
+  position: relative;
+  overflow: hidden;
+  .nex ,
+  .prev {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(#000000, 0.5);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  .multi-carousel-inner {
+    display: flex;
+    scroll-snap-type: x mandatory;
+    transition: transform 0.3s ease-in-out;
+  }
+  .multi-carousel-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    margin-right: 1rem;
+  }
+}
+
+
+.multi-carousel::-webkit-scrollbar {
+  display: none;
+}
+.multi-carousel-inner::-webkit-scrollbar {
+  display: none;
+}
+

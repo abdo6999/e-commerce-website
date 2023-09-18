@@ -1,0 +1,79 @@
+.user-details {
+  border-bottom: 1px solid #ddd;
+  border-radius: 5px;
+  .user-profile-header{
+    padding: 40px 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .user-avatar {
+    background: cyan;
+    border-radius: 50%;
+  }
+  .user-avatar img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .user-header {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .user-profile {
+    p {
+      font-size: 20px;
+      margin: 5px;
+      text-wrap: nowrap;
+    }
+    mat-panel-title{
+      flex-basis: auto;
+    }
+
+    .expansion-info .mat-mdc-form-field + .mat-mdc-form-field {
+      margin-left: 8px;
+    }
+    .mat-expansion-panel-header-description {
+      justify-content: end;
+    }
+    .info-item ,.info-left{
+      display: flex;
+      align-items: center;
+    }
+    .info-item  {
+      justify-content: space-between;
+      margin: 5px 0;
+      padding: 10px;
+      flex-wrap: wrap;
+    }
+
+
+    .info-item  mat-icon,
+    .info-item  fa-icon{
+      margin-right: 8px;
+    }
+    .info-label {
+      font-weight: bold;
+      margin-right: 8px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .info-value {
+      font-weight: normal;
+      font-size: 18px;
+      color: #666;
+    }
+
+  }
+
+  h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+
+
+}
+

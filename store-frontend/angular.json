@@ -27,8 +27,14 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/intl-tel-input/build/js",
+                "output": "./assets/js/intl"
+              }
             ],
+
             "styles": [
               "./node_modules/intl-tel-input/build/css/intlTelInput.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",

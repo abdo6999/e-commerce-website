@@ -1,0 +1,41 @@
+
+<h2 mat-dialog-title>Edit Profile</h2>
+<div mat-dialog-content>
+  <form [formGroup]="userForm" (submit)="updateInfo()">
+    <mat-form-field style="width: 100%">
+      <mat-label for="firstName">First Name</mat-label>
+      <input type="text" [formControl]="firstnameControl" matInput id="firstname" name="firstname" required>
+      <mat-error *ngIf="firstnameControl.hasError('required')">
+        First Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%">
+      <mat-label for="lastName">Last Name</mat-label>
+      <input type="text" [formControl]="lastnameControl" matInput id="lastname" name="lastname" required>
+      <mat-error *ngIf="lastnameControl.hasError('required')">
+        Last Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%">
+      <mat-label for="email">Email</mat-label>
+      <input type="email" [formControl]="emailControl" matInput id="email" name="email" required>
+      <mat-error *ngIf="emailControl.hasError('required')">Email is <strong>required</strong>.</mat-error>
+      <mat-error *ngIf="emailControl.hasError('email')">Invalid email format.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="input-default w-100" >
+      <app-tel-input [value]="user.phone" [formControl]="phoneControl" (validationStatusChange)="handleValidationStatus($event)" ></app-tel-input>
+      <mat-hint align="end" class="d-flex mt-2 align-items-center justify-content-center ">
+        You can type + country code
+        <button mat-icon-button [matTooltip]="'Example: +20 (for Egypt)'" aria-label="Example">
+          <mat-icon>help_outline</mat-icon>
+        </button>
+      </mat-hint>
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-button type="submit"  [disabled]="!this.userForm.valid || !this.isValidPhone" [mat-dialog-close]="this.userForm.value" >Save</button>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+    </div>
+  </form>
+</div>

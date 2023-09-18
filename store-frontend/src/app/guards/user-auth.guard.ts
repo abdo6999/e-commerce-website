@@ -12,7 +12,7 @@ export class UserAuthGuard   {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean  {
-      if (this.authService.isLoggedIn() && this.authService.getCurrentUser()){
+      if (this.authService.isLogin){
         return true;
       }else {
         this.router.navigate(['auth/login'],{
@@ -21,5 +21,4 @@ export class UserAuthGuard   {
       }
       return false
   }
-
 }

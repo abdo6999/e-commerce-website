@@ -1,0 +1,10 @@
+.address {
+  gap: 10px;
+}
+
+
+@media (max-width: 490px) {
+  .address {
+    flex-direction: column;
+  }
+}

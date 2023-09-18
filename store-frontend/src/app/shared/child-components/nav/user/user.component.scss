@@ -1,0 +1,24 @@
+.image-container {
+  background: cyan;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 0 10px 0 0;
+  & img {
+    width: 30px;
+    border-radius: 50%;
+    margin-top: -4px;
+  }
+}
+.dropdown-toggle::after {
+  color: var(--primary-color);
+}
+.text-container {
+  color: var(--primary-color);
+}
+::ng-deep .cdk-overlay-pane {
+  position: absolute!important;
+}
+.width-98 {
+  width: 98%;
+}

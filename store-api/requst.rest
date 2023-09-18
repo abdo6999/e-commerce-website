@@ -1,14 +1,13 @@
 
-GET  http://localhost:3200/api/customers/customer
+POST http://localhost:3200/api/customers/login
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiNDQyZjhkNzUtMmMxMi00NzhmLWI3YTAtNTRiMjZiMjA5NTQwMWE2YjIzZjQ2YzFkZTdhOTI1YzNkMWY4ZTZiNTI0NTdjMmU4NjQ3MjBlODFkM2E0ZDdhM2U1NmU2NTQ4OGE5IiwiaWF0IjoxNjkzMzg3MzQ4LCJleHAiOjE2OTMzODgyNDh9.tCMrbiTGaPEIAOPnmOW-G1Jykr9gKPL5nailw3dKYXw
 
-# {
-#   "AuthCredentialsDto":{
-#       "username": "testfsafUfafaser",
-#       "password": "testPassword"
-#   }
-# }
+{
+      "username": "testfsafUfafaser",
+      "password": "testPassword"
+}
+
 
 # {
 #   "AuthCredentialsDto": {

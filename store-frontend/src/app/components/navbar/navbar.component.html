@@ -1,138 +1,28 @@
-<nav class="navbar bg-light  navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="./">
+<nav class="navbar navbar-expand-md" >
+  <div class="container-fluid px-0 align-items-center">
+    <a class="navbar-brand nav-header-custom mr-1 pb-2" routerLink="./">
       EzyBezy
     </a>
-    <button class="navbar-toggler" (click)="toggleMenu()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <mat-icon class="navbar-toggler-icon">menu</mat-icon>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="h-100 d-flex align-items-center justify-content-center">
+        <a class="h-100 d-flex text-decoration-none justify-content-center mx-3"   routerLink="./cart">
+          <div class="d-flex justify-content-center align-items-center ">
+            <app-svg-viewer  [svgName]="'cart.svg'"></app-svg-viewer>
+          </div>
+        </a>
+        <mat-icon (click)="toggleMenu()" style="font-size: 30px;" class="navbar-toggler-icon nav-left-custom">menu</mat-icon>
+      </div>
     </button>
     <div class="collapse navbar-collapse text-center justify-content-between" [ngClass]="{'show': isMenuOpen}" id="navbarSupportedContent">
-      <ul *ngIf="!isMenuOpen; else smallScreenNav" class="navbar-nav me-auto mb-2 mb-lg-0" [style.flex]="2">
-        <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" role="button" mat-button [mat-menu-trigger-for]="listMenu">
-            Links
-          </a>
-          <mat-menu class="dropdown-menu" #listMenu>
-            <a class="h-100 dropdown-item text-decoration-none" mat-menu-item  routerLink="./">Home</a>
-            <li><hr class="dropdown-divider"></li>
-            <a class="h-100 text-decoration-none" mat-menu-item  routerLink="./products">Products</a>
-            <li><hr class="dropdown-divider"></li>
-            <a class="h-100 text-decoration-none" mat-menu-item  routerLink="./cart">Cart</a>
-            <li><hr class="dropdown-divider"></li>
-            <a class="h-100 text-decoration-none" mat-menu-item  routerLink="./checkout">Checkout</a>
-          </mat-menu>
-        </li>
-        <li class="nav-item dropdown mx-2">
-          <a class="nav-link dropdown-toggle" role="button" mat-button [mat-menu-trigger-for]="userMenu">
-            User
-          </a>
-          <mat-menu class="dropdown-menu" #userMenu >
-            <button *ngIf="!isLoggedIn"  mat-menu-item routerLink="./auth/login">Sign In</button>
-            <button *ngIf="!isLoggedIn"  mat-menu-item routerLink="./auth/register">Sign Up</button>
-            <div *ngIf="isLoggedIn">
-              <a class="text-decoration-none"  mat-menu-item routerLink="./profile">Profile</a>
-              <li><hr class="dropdown-divider"></li>
-            </div >
-            <div *ngIf="isLoggedIn">
-              <a class="text-decoration-none" mat-menu-item routerLink="./orders">Orders</a>
-              <li><hr class="dropdown-divider"></li>
-            </div>
-            <div *ngIf="isLoggedIn">
-              <a class="text-decoration-none" mat-menu-item routerLink="./home">Logout</a>
-            </div>
-          </mat-menu>
-        </li>
-        <li class="nav-item dropdown mx-2">
-          <a class="h-100 text-decoration-none dropdown-toggle" mat-button [mat-menu-trigger-for]="managementMenu">Management</a>
-          <mat-menu class="dropdown-menu" #managementMenu>
-            <a class="h-100 dropdown-item text-decoration-none" mat-menu-item  routerLink="./dashboard">Dashboard</a>
-            <li><hr class="dropdown-divider"></li>
-            <a class="h-100 text-decoration-none" mat-menu-item  routerLink="./dashboard">M-Categories</a>
-            <li><hr class="dropdown-divider"></li>
-            <a class="h-100 text-decoration-none" mat-menu-item  routerLink="./dashboard">M-Products</a>
-          </mat-menu>
-        </li>
-      </ul>
-      <ng-template  #smallScreenNav >
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0" [style.flex]="2">
-          <li class="nav-item dropdown mx-2">
-            <mat-accordion>
-              <mat-expansion-panel >
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <a class="nav-link" role="button" mat-button>
-                      Links
-                    </a>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                  <a class="h-100 dropdown-item text-decoration-none" mat-menu-item  routerLink="./">Home</a>
-                  <li><hr class="dropdown-divider"></li>
-                  <a class="h-100 text-decoration-none" mat-menu-item  routerLink="./products">Products</a>
-                  <li><hr class="dropdown-divider"></li>
-                  <a class="h-100 text-decoration-none" mat-menu-item  routerLink="./cart">Cart</a>
-                  <li><hr class="dropdown-divider"></li>
-                  <a class="h-100 text-decoration-none" mat-menu-item  routerLink="./checkout">Checkout</a>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </li>
-          <li class="nav-item dropdown mx-2">
-            <mat-accordion>
-              <mat-expansion-panel >
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <a class="nav-link" role="button" mat-button>
-                      User
-                    </a>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <button *ngIf="!isLoggedIn"  mat-menu-item routerLink="./auth/login">Sign In</button>
-                <button *ngIf="!isLoggedIn"  mat-menu-item routerLink="./auth/register">Sign Up</button>
-                <div *ngIf="isLoggedIn">
-                  <a class="text-decoration-none"  mat-menu-item routerLink="./profile">Profile</a>
-                  <li><hr class="dropdown-divider"></li>
-                </div >
-                <div *ngIf="isLoggedIn">
-                  <a class="text-decoration-none" mat-menu-item routerLink="./orders">Orders</a>
-                  <li><hr class="dropdown-divider"></li>
-                </div>
-                <div *ngIf="isLoggedIn">
-                  <a class="text-decoration-none" mat-menu-item routerLink="./home">Logout</a>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </li>
-          <li class="nav-item dropdown mx-2">
-            <mat-accordion>
-              <mat-expansion-panel >
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <a class="nav-link" role="button" mat-button>
-                      Management
-                    </a>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <a class="h-100 dropdown-item text-decoration-none" mat-menu-item  routerLink="./dashboard">Dashboard</a>
-                <li><hr class="dropdown-divider"></li>
-                <a class="h-100 text-decoration-none" mat-menu-item  routerLink="./dashboard">M-Categories</a>
-                <li><hr class="dropdown-divider"></li>
-                <a class="h-100 text-decoration-none" mat-menu-item  routerLink="./dashboard">M-Products</a>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </li>
-        </ul>
+      <app-collapsed-menu *ngIf="!isMenuOpen; else smallScreenNav"></app-collapsed-menu>
+      <ng-template #smallScreenNav >
+        <app-mobile-menu></app-mobile-menu>
       </ng-template>
-
-      <form class="d-flex justify-content-center" role="search" [style.flex]="3">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success mx-2" type="submit">Search</button>
-      </form>
-      <ul class="navbar-nav me-auto justify-content-center mb-2 mb-lg-0" [ngClass]="{'mt-4': isMenuOpen}" [style.flex]="1">
-        <li class="nav-item mx-2">
-          <a class="h-100 d-flex text-decoration-none justify-content-center" [style.flex]="1" mat-button routerLink="./cart">
-            <mat-icon class="material-icons-outlined md-48">shopping_cart</mat-icon>
-          </a>
-        </li>
-      </ul>
+      <div  class="nav-left d-flex align-items-center pointer" *ngIf="!isMenuOpen" >
+        <app-search-bar></app-search-bar>
+        <app-user ></app-user>
+        <app-cart-link></app-cart-link>
+      </div>
     </div>
   </div>
 </nav>

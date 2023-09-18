@@ -1,42 +1,98 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, filter, map, of, tap, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, Subject, catchError, interval, map, of, switchMap, throwError} from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from 'src/env/environment.prod';
 import { User } from 'src/app/models/user';
-import { AuthCredentialsDot,accessToken } from 'src/app/models/auth';
+import { AuthCredentialsDot,Response,accessToken } from 'src/app/models/auth';
+import { Profile } from 'src/app/models/profile';
+import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
+type ValidationErrors = {
+  [key: string]: any;
+};
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  isLogin!:boolean
+  isLoginSubject: BehaviorSubject<boolean>
+  constructor(private http: HttpClient) {
+    this.isLoginSubject = new BehaviorSubject<boolean>(this.isLogin);
+  }
 
-  constructor(private http: HttpClient, private router: Router) {}
-
-  // registerUser service
   registerUser(userData: User): Observable<void> {
     return this.http.post<void>(environment.REGISTER_ROUTE, userData)
   }
 
-  // login service
-  login(authCredentialsDot: AuthCredentialsDot) {
-    const body = {
-      userName: authCredentialsDot.userName,
-      password: authCredentialsDot.password,
+  login(authCredentialsDot: AuthCredentialsDot):Observable<Profile> {
+    return this.http.post<Response<Profile>>(environment.LOGIN_ROUTE, {authCredentialsDot},{withCredentials:true})    .pipe(
+      map(response => response.data)
+    );;
+  }
+
+  logout() {
+    return this.http.get(environment.LOGOUT_ROUT,{withCredentials:true});
+  }
+  generateToken(): Observable<void> {
+    return this.http.get<void>(environment.ACCUSES_TOKEN_ROUTE,{withCredentials:true})
+  }
+
+  checkIfEmailExists(username:string):Observable<boolean>{
+    return this.http.get<Response<boolean>>(`${environment.USERNAME_EXISTS + username}`,{withCredentials:true})    .pipe(
+      map(response => response.data)
+    );
+  }
+
+  emailValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.checkIfEmailExists(control.value).pipe(
+        map((res) => {
+          return res ? { emailExists: true } : null;
+        }),
+        catchError(async () => null)
+      );
     };
-    return this.http.post(environment.LOGIN_ROUTE, body);
   }
 
-  logout(): Observable<null> {
-    localStorage.removeItem('token');
-    return of(null);
+  // get is Login if authenticated true setIsLogin to true if authenticated false and if there are token (token:null) then try generate token
+  isLoggedIn():Observable<{ authenticated: boolean,token?:null }| null | void>  {
+    return this.http.get<{ authenticated: boolean,token?:null }>(environment.IS_LOGGED_IN_ROUT,{withCredentials:true})
+    .pipe(
+      switchMap((res) => {
+        this.setIsLogin(res.authenticated);
+        if (!res.authenticated && !res.token) {
+          return this.generateToken().pipe(
+            map(() => {
+              this.setIsLogin(true);
+            }),
+            catchError((error) => {
+              this.setIsLogin(false);
+              return Promise.resolve()
+            })
+          );
+        }
+        return Promise.resolve();
+      }),
+      catchError((error) => {
+        return Promise.resolve()
+      })
+    )
   }
 
-  getToken() {
-    return localStorage.getItem('token');
+
+
+
+
+  getIsLogin():Observable<boolean> {
+    return this.isLoginSubject.asObservable()
   }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token')
+  setIsLogin(value: boolean) {
+    this.isLogin = value;
+    this.isLoginSubject.next(value);
   }
+
+
+
 }
 

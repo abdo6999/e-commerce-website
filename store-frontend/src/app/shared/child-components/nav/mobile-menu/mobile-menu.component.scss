@@ -1,0 +1,26 @@
+::ng-deep {
+
+  .mat-expansion-panel {
+    background: var(--bg-color);
+  }
+  @media (hover: none){
+    .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+      background: var(--bg-color);
+    }
+  }
+  .dropdown-toggle::after{
+    color: #007bff;
+  }
+  .mat-expansion-indicator::after {
+    color: var(--secondary-color-2);
+  }
+  .mdc-list-item__primary-text{
+    color: var(--secondary-color-2);
+  }
+  .mat-expansion-panel:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+  }
+  .nav-link.mdc-button.mat-mdc-button{
+    justify-content: start;
+  }
+}

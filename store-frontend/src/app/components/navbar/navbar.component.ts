@@ -1,5 +1,6 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener , ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener , Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -8,36 +9,18 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./navbar.component.scss'],
   changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class NavbarComponent implements AfterViewInit {
-  @ViewChild("login") loginRef!:ElementRef
-  @ViewChild("register") registerRef!:ElementRef
-  @ViewChild("managementMenu") managementMenuRef!:ElementRef
-  @ViewChild("userMenu") userMenuRef!:ElementRef
+export class NavbarComponent   {
   isMenuOpen = false;
 
-  isLoggedIn: boolean= this.auth.isLoggedIn()
-  constructor(private auth:AuthService,
-    private router:Router){
+  first_name: string | null = localStorage.getItem("first_name")
+  profile_image:string | null = localStorage.getItem("profile_image")
 
-  }
+  constructor(private auth:AuthService){}
 
-  ngAfterViewInit(): void {
-    // if(this.auth.isAdmin()){
-    //   this.loginRef.nativeElement.style.display = "none";
-    //   this.registerRef.nativeElement.style.display = "none";
-    // }else if (this.auth.isLoggedIn()){
-    //   this.loginRef.nativeElement.style.display = "none";
-    //   this.registerRef.nativeElement.style.display = "none";
-    //   this.managementMenuRef.nativeElement.style.display = "none";
-    // }else {
-    //   this.managementMenuRef.nativeElement.style.display = "none";
-    //   this.userMenuRef.nativeElement.style.display = "none";
-    // }
-  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    if (window.innerWidth >= 991) {
+    if (window.innerWidth >= 576) {
       this.isMenuOpen = false;
     }
   }

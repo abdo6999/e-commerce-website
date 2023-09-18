@@ -1,0 +1,42 @@
+<div class="my-4 product-card card-body">
+  <div class="bg-image hover-zoom ripple rounded ripple-surface" tabindex="0" role="button" aria-label="Product Image">
+    <img [src]="product.thumbnail" style="height: 200px;" class="w-100" alt="{{ product.title }} Image" />
+    <div class="icons">
+      <div class="icon" tabindex="0" role="button" aria-label="Add to Favorites">
+        <mat-icon>favorite_border</mat-icon>
+      </div>
+      <div class="icon" tabindex="0" role="button" (click)="addToCart(product)" aria-label="Add to Cart">
+        <mat-icon>add_shopping_cart</mat-icon>
+      </div>
+      <div class="icon" tabindex="0" role="button" [routerLink]="'/products/'+product.id" aria-label="View Product Details">
+        <mat-icon>remove_red_eye</mat-icon>
+      </div>
+    </div>
+  </div>
+  <div class="product-content d-flex justify-content-center flex-column">
+    <h1 class="product-title my-2" [title]="product.title" aria-label="Product Title">{{ product.title }}</h1>
+    <div class="d-flex flex-row" aria-label="Product Rating">
+      <app-star-rating [rating]="product.rating"></app-star-rating>
+    </div>
+    <div class="my-1 text-muted small">
+      <span>{{ product.brand }}</span>
+      <span class="text-primary"> • </span>
+      <span aria-label="Stock">{{ product.stock_quantity }}</span>
+    </div>
+    <div class="product-description my-2 text-muted small" aria-label="Product Description">
+      <span>{{ product.category }}</span>
+      <span class="text-primary"> • </span>
+      <span class="description">{{ product.description }}</span>
+    </div>
+    <div class="price my-2">
+      <span class="original-price" aria-label="Original Price">{{ product.price | currency }}</span>
+      <span *ngIf="product.discount_percentage" class="text-danger" aria-label="Discounted Price">{{ product.price - (product.price * (product.discount_percentage / 100)) | currency }}</span>
+    </div>
+    <a class="learn-more text-decoration-none " [routerLink]="'/products/'+product.id" aria-label="Learn More Button">
+      <button class="learn-more-button p-2 rounded-pill">
+        Learn More
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </a>
+  </div>
+</div>

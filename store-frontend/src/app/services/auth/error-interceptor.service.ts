@@ -21,7 +21,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
-        if ([401, 403].indexOf(err.status)) {
+        if (err.status === 401 || err.status === 403) {
           this.authService.logout();
         } else if (err.status === 404) {
           this.router.navigate(['/notFoundResource', err.status], {

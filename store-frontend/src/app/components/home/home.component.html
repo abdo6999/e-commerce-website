@@ -1,1 +1,11 @@
-<p>home works!</p>
+<app-carousel></app-carousel>
+<div class="container">
+  <ng-container *ngIf="(productsByCategories$ | async) as products; else loadingProducts">
+      <div *ngFor="let data of products | keyvalue">
+        <h1 class="text-center category-title">{{ data.key.replace("-"," ") }}</h1>
+        <app-custom-carousel [name]="data.key" [products]="data.value"></app-custom-carousel>
+      </div>
+  </ng-container>
+</div>
+
+<ng-template #loadingProducts>Loading products...</ng-template>

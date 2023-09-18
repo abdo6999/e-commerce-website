@@ -1,20 +1,22 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  ChangeDetectionStrategy, Component,  Renderer2, ElementRef,  OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import * as IntlTelInput from 'intl-tel-input'
+import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection:ChangeDetectionStrategy.OnPush,
+
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit  {
   registrationForm!:FormGroup
   minBirthYear: number; // min accepted Birth Year
   show = false // password show
+  isValidPhone:boolean = false
+
   Options = { // tooltip Options
     'placement': 'bottom',
     'showDelay': 500,
@@ -29,11 +31,8 @@ export class RegisterComponent implements OnInit{
   constructor(private auth:AuthService,
     private router:Router,
     private fb:FormBuilder,
-    private modalService:BsModalService,
-    private alert:AlertService){
-      if (this.auth.isLoggedIn()){
-        this.router.navigate(["/home"])
-      }
+    private alert:AlertService,
+    private storage:LocalStorageService){
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
       this.minBirthYear = currentYear - 16;
@@ -42,45 +41,23 @@ export class RegisterComponent implements OnInit{
 
 
     ngOnInit(): void {
-
-
-
-
-
-
-
-
-// phone input option and setup
-      const phoneInput = document.getElementById("phone")
-      if(phoneInput){
-        IntlTelInput(phoneInput,{
-          initialCountry:"eg",
-          separateDialCode:true,
-        })
-      }
-
-
-
-
-
-
-
-
-
-
       this.registrationForm = this.fb.group({
         authCredentialsDot: new FormGroup({
           username : new FormControl(null),
           password: new FormControl(null,[Validators.required,
             Validators.pattern(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ // Adjust the pattern as needed
+              /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{8,}/
             )
           ]),
         }),
         createProfileDot: new FormGroup({
           first_name: new FormControl(null,[Validators.required, Validators.pattern('^[a-zA-Z]*$')]),
           last_name: new FormControl(null,[Validators.required, Validators.pattern('^[a-zA-Z]*$')]),
-          email: new FormControl(null,[Validators.required,Validators.email]),
+          email: new FormControl(null,{
+            validators: [Validators.required, Validators.email],
+            asyncValidators: [this.auth.emailValidator()],
+            updateOn: 'blur', //
+          }),
           gender:  new FormControl(null, [Validators.required]),
           age:  new FormControl(null),
           date_of_birth: new FormGroup({
@@ -88,14 +65,23 @@ export class RegisterComponent implements OnInit{
             month: new FormControl(null,[Validators.required,Validators.max(12),Validators.min(1),Validators.pattern('^[0-9]*$')]),
             year: new FormControl(null,[Validators.required,Validators.max(this.minBirthYear),Validators.pattern('^[0-9]*$'),Validators.min(1900)]),
           },{validators: this.dateValidator}),
-          phone: new FormControl(null,[Validators.required,Validators.pattern('^[0-9]*$')]),
+          phone: new FormControl(null),
           country:  new FormControl(null,[Validators.required]),
           city: new FormControl(null,[Validators.required]),
           post_code: new FormControl(null,[Validators.required,Validators.minLength(5),Validators.maxLength(5)]),
           address: new FormControl(null,[Validators.required]),
         })
       })
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -107,25 +93,35 @@ export class RegisterComponent implements OnInit{
 
     userRegister(){
       // set username and age internally
-      this.registrationForm.value.authCredentialsDot.username = this.emailControl.value
-      this.registrationForm.value.createProfileDot.age = this.calculateAge(this.dateControl.value)
-      console.log(this.registrationForm.value)
-
-
-      this.auth.registerUser(this.registrationForm.value).subscribe({
-        next:(res)=>{
-          console.log(this.authCredentialsDotForm)
-          this.auth.login(this.authCredentialsDotForm?.value).subscribe({
-            next: (resToken) => {
-              localStorage.setItem("token", resToken.accessToken);
-              this.router.navigate(["./home"]);
-            },
-            error: (error) => {
-              this.alert.error(error);
-            },
-          })
-        }
-      })
+      if (this.registrationForm.valid && this.isValidPhone) {
+        this.registrationForm.value.authCredentialsDot.username = this.emailControl.value
+        this.registrationForm.value.createProfileDot.date_of_birth = new Date(
+          Number(this.dateControl.value.year),
+          Number(this.dateControl.value.month) - 1, // Months are zero-based
+          Number(this.dateControl.value.day)
+        );
+        this.registrationForm.value.createProfileDot.age = this.calculateAge(this.dateControl.value)
+        this.auth.registerUser(this.registrationForm.value).subscribe({
+          next:(res)=>{
+            this.auth.login(this.authCredentialsDotForm?.value).subscribe({
+              next: (res) => {
+                this.storage.setFirstName(res.first_name)
+                this.storage.setProfileImage(res.profile_image)
+                this.auth.setIsLogin(true);
+              },
+              error: (error) => {
+                this.alert.error(error);
+              },
+              complete: () => this.router.navigate(["./home"])
+            });
+          },
+          error: (error) => {
+            this.alert.error(error);
+          },
+        })
+      }else {
+        alert("invalid form inputs")
+      }
     }
 
 
@@ -152,6 +148,9 @@ export class RegisterComponent implements OnInit{
 
 
 
+    handleValidationStatus(isValid: boolean) {
+      this.isValidPhone = isValid
+    }
 
 
     // validate if age >= 16
@@ -186,8 +185,6 @@ export class RegisterComponent implements OnInit{
 
 
 
-
-
     // geterr
 
 
@@ -208,11 +205,11 @@ export class RegisterComponent implements OnInit{
     }
 
     get firstnameControl(): FormControl {
-      return this.createProfileDotForm.get('firstname') as FormControl;
+      return this.createProfileDotForm.get('first_name') as FormControl;
     }
 
     get lastnameControl(): FormControl {
-      return this.createProfileDotForm.get('lastname') as FormControl;
+      return this.createProfileDotForm.get('last_name') as FormControl;
     }
 
     get emailControl(): FormControl {
@@ -256,4 +253,8 @@ export class RegisterComponent implements OnInit{
     get addressControl(): FormControl {
       return this.createProfileDotForm.get('address') as FormControl;
     }
+
+
+
+
 }

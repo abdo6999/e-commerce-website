@@ -1,0 +1,55 @@
+span {
+  opacity: 0;
+
+  transition: opacity 200ms;
+}
+
+:host.floating span {
+  opacity: 1;
+}
+
+.iti {
+  width: 100%;
+
+  max-width: 100%;
+}
+
+input {
+  border: none;
+}
+
+::ng-deep .iti.iti--allow-dropdown input {
+  margin-left: 8px;
+  background-color: transparent;
+}
+::ng-deep .iti.iti--allow-dropdown input::placeholder {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+::ng-deep .iti .iti__flag-container .iti__selected-flag,
+::ng-deep .iti .iti__flag-container .iti__selected-flag:hover {
+  background-color: transparent;
+}
+::ng-deep .iti__selected-dial-code {
+  color: rgba(0, 0, 0, 0.6)!important;
+
+}
+::ng-deep .iti__country-name,
+.iti__selected-dial-code {
+  color: rgba(0, 0, 0, 0.8);
+}
+::ng-deep .iti .iti__flag-container .iti__selected-flag {
+  padding-right: 6px;
+
+  border-right: 1px solid #e3e3e3;
+
+}
+
+::ng-deep .iti .iti__flag-container .iti__selected-flag .iti_custom_arrow i {
+  margin-top: 4px;
+
+  margin-left: 4px;
+
+  font-size: 16px;
+}
+

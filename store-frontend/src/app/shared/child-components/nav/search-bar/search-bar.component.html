@@ -1,0 +1,14 @@
+<div class="search" [ngClass]="{ 'expanded': isExpanded || mobile }">
+  <form role="search" method="get" class="search-form " action="">
+    <div class="search-input-container" >
+      <input type="text" class="search-input" placeholder="Search" (blur)="onBlur($event)"  />
+      <select class="dropdown">
+        <option value="all">All</option>
+        <ng-container *ngIf="categories$ | async as categories">
+          <option *ngFor="let category of categories" [value]="category.name">{{category.name.replace("-"," ")}}</option>
+        </ng-container>
+      </select>
+    </div>
+    <mat-icon class="mx-2 nav-left-custom  search-btn" (click)="toggleSearch()">search</mat-icon>
+  </form>
+</div>

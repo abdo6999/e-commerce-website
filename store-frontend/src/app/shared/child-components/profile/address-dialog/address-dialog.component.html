@@ -1,0 +1,36 @@
+
+<h2 mat-dialog-title>Edit Address</h2>
+<div mat-dialog-content>
+  <form [formGroup]="userForm" (submit)="updateAddress()">
+    <div class="d-flex address">
+      <mat-form-field  >
+        <mat-label>Country</mat-label>
+        <input matInput [formControl]="countryControl" placeholder="Ex. United States" required>
+        <mat-error *ngIf="countryControl.hasError('required')">Country is <strong>required</strong></mat-error>
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>City</mat-label>
+        <input matInput [formControl]="cityControl" placeholder="Ex. San Francisco" required>
+        <mat-error *ngIf="cityControl.hasError('required')">City is <strong>required</strong></mat-error>
+
+      </mat-form-field>
+      <mat-form-field >
+        <mat-label>Postal Code</mat-label>
+        <input matInput [formControl]="postCodeControl" #postalCode maxlength="5" placeholder="Ex. 94105" required>
+        <mat-error *ngIf="postCodeControl.hasError('required')">Code is <strong>required</strong></mat-error>
+
+        <mat-hint align="end">{{ postalCode.value.length }} / 5</mat-hint>
+      </mat-form-field>
+    </div>
+    <mat-form-field   style="width:100%">
+      <mat-label for="address">Address</mat-label>
+      <input type="text" [formControl]="addressControl" matInput id="address" name="address" required>
+      <mat-error *ngIf="addressControl.hasError('required')">Address is <strong>required</strong></mat-error>
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-button  type="submit" [disabled]="!this.userForm.valid || !this.isValidPhone" [mat-dialog-close]="this.userForm.value" >Save</button>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+    </div>
+  </form>
+
+</div>

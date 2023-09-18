@@ -1,9 +1,18 @@
+
 .login {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color);
+
   .input-group-append button {
     border: 1px solid #ced4da;
   }
+  .input-group {
+    flex-wrap: nowrap;
+  }
   input.form-control{
-    color: #F8F9FA;
+    color: var(--text-color);
   }
   .form-control:focus{
     border-color: #ced4da;
@@ -12,11 +21,31 @@
     color: #264ECA;
   }
   input::placeholder{
-    color: #F8F9FA;
+    color: var(--text-color);
+  }
+  input[type="submit"]{
+    color: var(--light-gray-1);
+  }
+  ::ng-deep .cart svg{
+    width: auto;
+    height: auto;
+    &:hover {
+      transform: scale(1);
+      & path:nth-child(1) {
+        stroke: var(--primary-color);
+      }
+      & path:nth-child(2) {
+        fill:var(--primary-color);
+      }
+      & path:nth-child(3),
+      & path:nth-child(4) {
+        stroke:var(--primary-color);
+      }
+    }
   }
 }
   mat-icon {
     border-right: none;
-    color: #F8F9FA;
+    color: var(--text-color);
   }
 

@@ -1,0 +1,65 @@
+<ng-container *ngIf="{data:combinedData$ | async} as res">
+  <mat-accordion *ngIf="mobile;else user_lg_screen">
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <a class="nav-link nav-header-custom "  mat-button>
+            {{res.data.isLogin?"Account":"Get Start"}}
+          </a>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <button *ngIf="!res.data.isLogin"  mat-menu-item routerLink="./auth/login">Sign In</button>
+      <button *ngIf="!res.data.isLogin"  mat-menu-item routerLink="./auth/register">Sign Up</button>
+      <div *ngIf="res.data.isLogin">
+        <a class="text-decoration-none"  mat-menu-item routerLink="./profile">Profile</a>
+      </div>
+      <div *ngIf="res.data.isLogin">
+        <a class="text-decoration-none" mat-menu-item routerLink="./orders">Orders</a>
+      </div>
+      <div (click)="logout()" *ngIf="res.data.isLogin">
+        <a class="text-decoration-none"  mat-menu-item routerLink="./home">Logout</a>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <ng-template #user_lg_screen>
+    <div>
+      <ng-container *ngIf="res.data.isLogin; else isLoginTem" >
+        <div class="nav-item-custom mx-2" [ngClass]="t.menuOpen ? 'nav-item-custom-click':'nav-item-custom'" #t="matMenuTrigger"  [mat-menu-trigger-for]="userMenu" >
+          <div class="user-avatar dropdown-toggle d-flex justify-content-center align-items-center " >
+            <div class="image-container">
+              <img *ngIf="res.data.profile_image;else first_char" [src]="res.data.profile_image" alt="User Avatar" />
+              <ng-template #first_char>
+                <div class="d-flex text-center align-items-center h-100 w-100">
+                  <p class="mb-0 width-98">
+                    {{res.data.first_name![0]}}
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+            <div class="text-container">
+              <h3 class="m-0">{{ res.data.first_name }}</h3>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <mat-menu class="dropdown-menu" #userMenu >
+        <div>
+          <a class="text-decoration-none"  mat-menu-item routerLink="./profile">Profile</a>
+          <li><hr class="dropdown-divider"></li>
+        </div >
+        <div >
+          <a class="text-decoration-none" mat-menu-item routerLink="./orders">Orders</a>
+          <li><hr class="dropdown-divider"></li>
+        </div>
+        <div  (click)="logout()" >
+          <a class="text-decoration-none"  mat-menu-item routerLink="./home">Logout</a>
+        </div>
+      </mat-menu>
+      <ng-template #isLoginTem >
+          <a class="nav-left-custom  h-100 text-decoration-none" routerLink="./auth/login">Login </a>
+          <span class="nav-left-custom px-1">/</span>
+          <a class="nav-left-custom  h-100 px-1 text-decoration-none"  routerLink="./auth/register">Sign Up</a>
+      </ng-template>
+    </div>
+  </ng-template>
+</ng-container>

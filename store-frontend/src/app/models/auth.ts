@@ -1,8 +1,20 @@
+
 export class AuthCredentialsDot {
-  userName!: string
+  username!: string
   password!: string
 }
 
 export class accessToken {
-  accessToken!:string
+  access_token!:string
 }
+
+
+export class Response<T> {
+  status!: number
+  message!: string
+  data!:T
+}
+
+
+
+

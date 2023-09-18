@@ -1,1 +1,20 @@
-<p>cart works!</p>
+<div class="container" *ngIf="products$ | async as products;else empty">
+  <div class="row">
+    <div class="col-lg-8">
+      <app-cart-item *ngFor="let product of products" [product]="product" (decreaseStock)="decreaseStock(product)" (increaseStock)="increaseStock(product)"></app-cart-item>
+    </div>
+    <div class="col-lg-4 d-flex align-items-center justify-content-center" >
+      <div class="cart-summary flex-grow-1 p-2 m-2">
+        <h5>Cart Summary</h5>
+        <div class="total">
+          Total: {{products | calculateTotal | currency}}
+        </div>
+        <button class="btn btn-primary btn-block">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #empty>
+  <h1>the cart is empty</h1>
+</ng-template>
